@@ -9,8 +9,8 @@ BETA = 0.75 #reaction time
 SIGMA = 0.0070104 # reciprocal of twice the maximum average deceleration of the following vehicle
 MIN_ACCELERATION = 0 # minimum acceleration
 MAX_ACCELERATION = 5 # maximum acceleration
-MIN_SPEED = 50 # minimum vehicle speed
-MAX_SPEED = 70 #maximum speed
+MIN_SPEED = (50*1.6)*1000/3600 # minimum vehicle speed in m/s
+MAX_SPEED = (70*1.6)*1000/3600 #maximum speed in m/s
 
 
 class Car:
@@ -88,9 +88,9 @@ class Car:
                     #if the min_ speed is not inside the speed range, disregard the calculation
                     if(min_speed<MIN_SPEED):
                         min_speed = MAX_SPEED
-                self.vehicle_speed = min(min_speed,speed)
+                self.vehicle_speed = round(min(min_speed,speed))
             else:
-                self.vehicle_speed = speed
+                self.vehicle_speed = round(speed)
 
 
 

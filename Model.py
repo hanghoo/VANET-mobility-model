@@ -14,6 +14,7 @@ TRAFFIC_VOLUME = 3000 #vehicles/hour/lane
 ARR_DEP_RATE = 0.833 # arrival/ departure rate
 TRAFFIC_DENSITY_MIN = 100 # minimum traffic density per lane
 TRAFFIC_DENSITY_MAX = 500 # maximum traffic density per lane
+LANE_SEPARATION =3 #lane separation is 3 meters
 figure(0)
 pl.ylim([0,5000])   # setting the grid length to 5 units (assume 1 unit = 1mile)
 pl.xlim([0,12])  # Generate 4 lanes with distance between each as 3 units
@@ -21,6 +22,8 @@ pl.xlim([0,12])  # Generate 4 lanes with distance between each as 3 units
 #variables
 model_cars = []
 lanes_cars_num = [0,0,0,0]
+model_positions =[]
+entry_ramp_pos = []
 
 
 '''########################################################################
@@ -30,7 +33,6 @@ lanes_cars_num = [0,0,0,0]
 # Return value: list of postions of entry ramps
 ###########################################################################'''
 def generate_entry_ramp_positions():
-    entry_ramp_pos = []
 
     while (len(entry_ramp_pos) < 3): #Keep trying to generate till we have 3 unique ramp positions.
         temp_position = random.randrange(1, 5000)
@@ -45,8 +47,6 @@ def generate_entry_ramp_positions():
             else:                    # Execute this block if there is no repetitions of ramp position values.
                 if(len(entry_ramp_pos) < 3):
                     entry_ramp_pos.append(temp_position)
-                    
-    return entry_ramp_pos
 
 
 '''########################################################################
@@ -83,7 +83,6 @@ Input Parameters: the initial plot of the model
 Output parameters: a list containing a list of all the vehicle positions
 #######################################################"""
 def start_model():
-    model_positions =[]
     for i in range(LANES):
         positions = []
         lane = 2 +(i*3) #lane position, the + 4 is the offset from the y axis
@@ -104,12 +103,15 @@ def start_model():
             #add car to the lane
             lanes_cars_num[i]+=1
 
+"""####################################################
+Function name: entry_vehicle()
+Description: Determines if a vehicle needs to enter the rode
+             one vehicle will enter on each iteration, the ramp and
+             lane will be chosen randomly
+Input Parameters: positions (the reference of all the vehicle positions)
+Output parameters: void
+#######################################################"""
 
-entry_ramp_positions = generate_entry_ramp_positions()
-print(entry_ramp_positions)
-plot_grid(entry_ramp_positions)
-start_model()
-pl.show()
 
 
 
