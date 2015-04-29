@@ -62,7 +62,7 @@ class Car:
     def update_car_properties(self,front_vehicle,ds=0,front_vehicle_speed =0):
 
         #calculate the new position of the vehicle, assume a 100ms granularity
-        distance = self.vehicle_speed * 100
+        distance = round(self.vehicle_speed * 100)
         self.y_axis = self.y_axis + distance
 
         #calculate acceleration, make sure is inside the range
@@ -88,9 +88,9 @@ class Car:
                     #if the min_ speed is not inside the speed range, disregard the calculation
                     if(min_speed<MIN_SPEED):
                         min_speed = MAX_SPEED
-                self.vehicle_speed = round(min(min_speed,speed))
+                self.vehicle_speed = min(min_speed,speed)
             else:
-                self.vehicle_speed = round(speed)
+                self.vehicle_speed = speed
 
 
 
